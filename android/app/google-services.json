@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205566005679",
+    "project_id": "frasedia-d5b91",
+    "storage_bucket": "frasedia-d5b91.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205566005679:android:a4961f9ad0fea1eae91f5a",
+        "android_client_info": {
+          "package_name": "com.bob.frasedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhxOHfq2g35L7hJxyTmy0BCdhba9MXyhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
