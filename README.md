@@ -1,5 +1,7 @@
 # frasedia
 
+Baixar APK da avaliativa: https://github.com/Steviziho/Avaliativa_6/raw/refs/heads/master/app-release.apk
+
 A new Flutter project.
 
 ## Getting Started
