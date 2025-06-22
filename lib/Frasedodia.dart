@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:frasedia/main.dart';
 
 class MensagemDia extends StatefulWidget {
   const MensagemDia({super.key});
@@ -19,6 +20,7 @@ class _MensagemDiaState extends State<MensagemDia> {
     super.initState();
     player = AudioPlayer();
     _tocarSom("assets/som.mp3");
+    _pegaFraseAleatoria();
   }
 
   @override
@@ -37,10 +39,10 @@ class _MensagemDiaState extends State<MensagemDia> {
     }
   }
 
-  String _frase = 'Precione a Bíblia para receber uma mensagem de Deus! 👇🏾';
+  String _frase = '';
+  String _versiculo = '';
 
   Future<void> _pegaFraseAleatoria() async {
-    _tocarSom("assets/som.mp3");
     try {
       final collection = FirebaseFirestore.instance.collection('frases');
       final snapshot = await collection.get();
@@ -51,6 +53,7 @@ class _MensagemDiaState extends State<MensagemDia> {
 
         setState(() {
           _frase = randomDoc['texto'];
+          _versiculo = randomDoc['versiculo'];
         });
       } else {
         setState(() {
@@ -109,17 +112,60 @@ class _MensagemDiaState extends State<MensagemDia> {
                   displayFullTextOnTap: true,
                   stopPauseOnTap: true,
                 ),
-                SizedBox(height: 40),
+                Text(_versiculo,
+                  style: TextStyle(
+                  fontSize: 24,
+                  height: 5,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),),
+                SizedBox(height: 20),
                 ElevatedButton(
-                  child: Text("📖"),
                   style: ButtonStyle(
                     textStyle: WidgetStateProperty.all(TextStyle(
-                      fontSize: 90,
+                      fontSize: 50,
                     )),
                     backgroundColor:
                     WidgetStateProperty.all(Colors.transparent),
+                    elevation: WidgetStatePropertyAll(1),
                   ),
-                  onPressed: _pegaFraseAleatoria,
+                  onPressed: () {
+                    player.stop();
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder:
+                            (context, animation, secondaryAnimation) =>
+                            MeuAplicativo(),
+
+
+                        transitionsBuilder:
+                            (
+                            context,
+                            animation,
+                            secondaryAnimation,
+                            child,
+                            ) {
+                          var tween = Tween(
+                            begin: 0.0,
+                            end: 3.0,
+                          ).chain(CurveTween(curve: Curves.easeInBack));
+                          return FadeTransition(
+                            opacity: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  child: Text("◀️Voltar",
+                    style: TextStyle(
+                    fontSize: 24,
+                    height: 2,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                  ),
+                  ),
                 ),
               ],
             ),

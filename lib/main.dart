@@ -94,7 +94,7 @@ class _MeuAplicativoState extends State<MeuAplicativo> {
                                     child,
                                   ) {
                                     var tween = Tween(
-                                      begin: 0.0,
+                                      begin: 1.0,
                                       end: 3.0,
                                     ).chain(CurveTween(curve: Curves.easeInBack));
                                     return FadeTransition(
